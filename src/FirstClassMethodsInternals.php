@@ -20,4 +20,9 @@ class FirstClassMethodsInternals
      * @var string|null
      */
     static $customReferencerScope = null;
+
+    /**
+     * @TODOC
+     */
+    static $methodClass = Method::CLASS;
 }

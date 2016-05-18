@@ -61,7 +61,7 @@ trait FirstClassMethods
             }
         }
         //----------------------------------------------------------------------------------
-        return $rm->getClosure($this);
+        return new FirstClassMethodsInternals::$methodClass($rm->getDeclaringClass()->getName(), $method, $this);
     }
 
     /**
