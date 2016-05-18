@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="./test/__autoload.php"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    strict="true"
+>
+    <testsuites>
+        <testsuite name="FirstClassMethodsTests">
+            <directory>./test/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
+    <!--
+    <logging>
+        <log type="coverage-html" target="./../FCMCodeCoverage" lowUpperBound="80" highLowerBound="90" />
+    </logging>
+    -->
+</phpunit>
