@@ -1,0 +1,17 @@
+{
+    "name": "wesnetmo/php-first-class-methods",
+    "description": "First Class Methods for PHP7",
+    "keywords": ["first", "class", "methods", "functional"],
+    "homepage": "https://github.com/WesNetmo/PHP-First-Class-Methods",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wes",
+            "homepage": "https://github.com/WesNetmo",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    }
+}
