@@ -113,11 +113,10 @@ trait Symbola
     /**
      * Gets the root class type of the given class name.
      *
-     * @param string $className Empty string is allowed and means not-a-class referencer.
+     * @param string $className
      * @return string The root class of the given class name.
      */
     final private function __Symbola__getRootClassOf(string $className){
-        if($className === ''){ return ''; }
         $parents = array_keys(class_parents($className));
         return count($parents) === 0 ? $className :  array_slice($parents, -1)[0];
     }
