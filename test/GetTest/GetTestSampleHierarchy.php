@@ -1,13 +1,12 @@
 <?php
 
-use Netmosfera\FCM\FirstClassMethods;
-use Netmosfera\FCM\FirstClassMethodsInternals;
+namespace Netmosfera\FCMTests\GetTest;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
-const Error = Error::CLASS;
-const Closure = Closure::CLASS;
-const stdClass = stdClass::CLASS;
+use Netmosfera\Symbola\Symbola;
+use Netmosfera\Symbola\SymbolaInternals;
+use Closure;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
@@ -17,7 +16,7 @@ const stdClass = stdClass::CLASS;
  * @property Closure $PUB
  */
 class SuperSuperSuperKlass{
-    use FirstClassMethods;
+    use Symbola;
     private   function PRI   (){ return __METHOD__; }
     protected function PRO   (){ return __METHOD__; }
     public    function PUB   (){ return __METHOD__; }
@@ -60,15 +59,15 @@ const ChildChildKlass = ChildChildKlass::CLASS;
 const ChildChildChildKlass = ChildChildChildKlass::CLASS;
 
 /**
- * Creates a test class with a custom caller class.
+ * Creates a test class object with an hardcoded custom caller class.
  *
  * @param           string                                                                  $className
  * @param           string|null                                                             $caller
- * @return          Klass
+ * @return          SuperSuperSuperKlass
  */
 function make(string $className, string $caller = null){
     $object = new $className();
-    FirstClassMethodsInternals::$customReferencerScope = $caller;
+    SymbolaInternals::$customReferencerScope = $caller;
     return $object;
 }
 

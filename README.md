@@ -1,19 +1,38 @@
-# First Class Methods in PHP7
+# Symbola
 
-Work in progress.
+First class methods & co. for PHP 7. (Experimental)
+
+## Why use it?
+- Always type-hint for `Closure` (and never `callable`, which has [strange semantics](https://wiki.php.net/rfc/consistent_callables))
+- No need to hardcode method names as string; `[$this, 'method']` will simply be `$this->method`
+- No need for special syntax for calling "`callable` fields": `($this->field)()` will simply be `$this->field()`
 
 ```php
-class Foo{
- use FirstClassMethods;
- function bar(string $foo){ return "bar! $foo"; }
+/**
+ * @method string foo()
+ * @property string $bar
+ */
+class Something
+{
+    use Symbola;
+
+    public $foo;
+
+    function __construct(){
+        $this->foo = function(){
+            return "I'm foo!";
+        };
+    }
+
+    function bar(){
+        return "I'm bar!";
+    }
 }
 
-$fooObj = new Foo;
-$method = $fooObj->bar; // Gets a reference to the method `bar` bound to `$fooObj`
-echo $method("yay!");   // Prints "bar! yay!"
+$object = new Something;
 
-assert($method->getThis() === $fooObj);
-assert($method->getOwnerClass() === 'Foo');
-assert($method->getName() === 'bar');
-assert($method->getScopedName() === 'Foo::bar');
+echo $object->foo(); // Prints "I'm foo!"
+
+$bar = $object->bar;
+echo $bar(); // Prints "I'm bar!"
 ```

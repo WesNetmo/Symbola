@@ -1,6 +1,6 @@
 <?php
 
-namespace Netmosfera\FCM;
+namespace Netmosfera\Symbola;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 

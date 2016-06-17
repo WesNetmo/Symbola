@@ -15,3 +15,6 @@ spl_autoload_register(function($class){
     $file = __DIR__ . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, explode('\\', $classRelative)) . '.php';
     require($file);
 });
+
+require(__DIR__ . '/symbols.php');
+

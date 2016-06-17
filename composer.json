@@ -1,8 +1,8 @@
 {
-    "name": "wesnetmo/php-first-class-methods",
-    "description": "First Class Methods for PHP7",
-    "keywords": ["first", "class", "methods", "functional"],
-    "homepage": "https://github.com/WesNetmo/PHP-First-Class-Methods",
+    "name": "wesnetmo/symbola",
+    "description": "Symbola",
+    "keywords": ["first", "class", "methods", "functional", "callable", "closure"],
+    "homepage": "https://github.com/WesNetmo/Symbola",
     "license": "MIT",
     "authors": [
         {
