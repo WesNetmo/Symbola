@@ -48,13 +48,13 @@ trait Symbola
             if(!isset($reflectionMethod) || !$reflectionMethod->isPrivate()){
                 // If it's not private or it doesn't exist, attempt to use
                 // the last-in-hierarchy method definition.
-                $reflectionMethod = $this->__FCM__getLastInHierarchyMethod($methodName, $callerClassContext);
+                $reflectionMethod = $this->__Symbola__getLastInHierarchyMethod($methodName, $callerClassContext);
             }
             // Otherwise, use the private method found, which has precedence.
         }else{
             // Caller is outside $this' hierarchy; attempt to use
             // the last-in-hierarchy method definition.
-            $reflectionMethod = $this->__FCM__getLastInHierarchyMethod($methodName, $callerClassContext);
+            $reflectionMethod = $this->__Symbola__getLastInHierarchyMethod($methodName, $callerClassContext);
         }
         //----------------------------------------------------------------------------------
         if(
@@ -102,7 +102,7 @@ trait Symbola
      * @return ReflectionMethod
      * @throws Error If there is no such method.
      */
-    final private function __FCM__getLastInHierarchyMethod($methodName, $referencerClass){
+    final private function __Symbola__getLastInHierarchyMethod($methodName, $referencerClass){
         try{
             return new ReflectionMethod($this, $methodName);
         }catch(ReflectionException $e){
