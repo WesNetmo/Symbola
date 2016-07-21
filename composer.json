@@ -11,6 +11,9 @@
             "role": "developer"
         }
     ],
+    "psr-4": {
+        "Netmosfera\\Symbola\\": "src/"
+    },
     "require": {
         "php": ">=7.0"
     }
