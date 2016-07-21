@@ -4,6 +4,11 @@
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
+    stopOnError="true"
+    stopOnFailure="true"
+    stopOnIncomplete="true"
+    stopOnSkipped="true"
+    stopOnRisky="true"
     strict="true"
 >
     <testsuites>
@@ -16,7 +21,4 @@
             <directory suffix=".php">./src/</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-html" target="./../SymbolaCodeCoverage" lowUpperBound="80" highLowerBound="90" />
-    </logging>
 </phpunit>
