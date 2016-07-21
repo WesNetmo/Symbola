@@ -1,13 +1,13 @@
 {
-    "name": "wesnetmo/symbola",
+    "name": "netmosfera/symbola",
     "description": "Symbola",
     "keywords": ["first", "class", "methods", "functional", "callable", "closure"],
-    "homepage": "https://github.com/WesNetmo/Symbola",
+    "homepage": "https://github.com/Netmosfera/Symbola",
     "license": "MIT",
     "authors": [
         {
             "name": "Wes",
-            "homepage": "https://github.com/WesNetmo",
+            "homepage": "https://github.com/Netmosfera",
             "role": "developer"
         }
     ],
