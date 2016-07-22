@@ -1,10 +1,10 @@
 <?php
 
-namespace Netmosfera\FCMTests\GetTest;
+namespace Netmosfera\SymbolaTests\GetTest;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
-use Netmosfera\FCMTests\PHPUnit;
+use Netmosfera\SymbolaTests\PHPUnit;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 

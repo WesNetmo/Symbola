@@ -87,11 +87,13 @@ trait Symbola
             $referencerClass = SymbolaInternals::$customReferencerScope;
             return $referencerClass === '' ? §NotAClass§::CLASS : $referencerClass;
         }
+        // @codeCoverageIgnoreStart
         $referencerClass = debug_backtrace(0, 3);
         if(isset($referencerClass[2]) && isset($referencerClass[2]['class'])){
             return $referencerClass[2]['class'];
         }
         return §NotAClass§::CLASS;
+        // @codeCoverageIgnoreEnd
     }
 
     /**

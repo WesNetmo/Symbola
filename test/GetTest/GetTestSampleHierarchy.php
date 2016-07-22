@@ -1,6 +1,6 @@
 <?php
 
-namespace Netmosfera\FCMTests\GetTest;
+namespace Netmosfera\SymbolaTests\GetTest;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 

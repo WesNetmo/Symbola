@@ -1,6 +1,6 @@
 # Symbola
 
-First class methods & co. for PHP 7. (Experimental)
+First class methods & more for PHP 7 (Experimental)
 
 ## Why use it?
 - Always type-hint for `Closure` (and never `callable`, which has [strange semantics](https://wiki.php.net/rfc/consistent_callables))

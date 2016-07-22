@@ -1,6 +1,6 @@
 <?php
 
-namespace Netmosfera\FCMTests\CallTest;
+namespace Netmosfera\SymbolaTests\CallTest;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
@@ -22,9 +22,9 @@ function PRO($className){ return makeTestClosure($className, 'PRO'); }
 function PUB($className){ return makeTestClosure($className, 'PUB'); }
 
 /**
- * @method string PRI
- * @method string PRO
- * @method string PUB
+ * @method string PRI()
+ * @method string PRO()
+ * @method string PUB()
  */
 class SuperSuperSuperKlass{
     use Symbola;

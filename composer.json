@@ -16,6 +16,14 @@
             "Netmosfera\\Symbola\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Netmosfera\\SymbolaTests\\": "test/"
+        },
+        "files": [
+            "test/symbols.php"
+        ]
+    },
     "require": {
         "php": ">=7.0"
     }
