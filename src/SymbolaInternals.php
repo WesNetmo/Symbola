@@ -20,7 +20,7 @@ class SymbolaInternals
      *
      * @var string|null
      */
-    static $customReferencerScope = null;
+    public static $customReferencerScope = null;
 
     /**
      * The error class to be instantiated for "undefined object member"
@@ -28,5 +28,5 @@ class SymbolaInternals
      *
      * Constructor must match that from Error class.
      */
-    static $errorClass = ClassMemberAccessError::CLASS;
+    public static $errorClass = ClassMemberAccessError::CLASS;
 }

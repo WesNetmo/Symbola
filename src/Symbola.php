@@ -20,7 +20,7 @@ final class §NotAClass§
 trait Symbola
 {
     /** @inheritDoc */
-    function __call($methodName, $arguments){
+    public function __call($methodName, $arguments){
         $callerClassContext = $this->__Symbola__getReferencerClass();
         $call = function($methodName, $arguments){ $m = $this->$methodName; return $m(...$arguments); };
         $call = $call->bindTo($this, $callerClassContext);
@@ -28,7 +28,7 @@ trait Symbola
     }
 
     /** @inheritDoc */
-    function __get($methodName){
+    public function __get($methodName){
         $callerClassContext = $this->__Symbola__getReferencerClass();
         //----------------------------------------------------------------------------------
         if(is_a($this, $callerClassContext)){
