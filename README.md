@@ -36,3 +36,9 @@ echo $object->foo(); // Prints "I'm foo!"
 $bar = $object->bar;
 echo $bar(); // Prints "I'm bar!"
 ```
+
+## Install through Composer:
+
+```
+composer require netmosfera/symbola
+```
