@@ -4,6 +4,12 @@ namespace Netmosfera\Symbola;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
+use function debug_backtrace;
+use function class_parents;
+use function array_slice;
+use function array_keys;
+use function count;
+use function is_a;
 use ReflectionException;
 use ReflectionMethod;
 use Error;
@@ -132,8 +138,8 @@ trait Symbola
      * @throws Error
      */
     final private function __Symbola__throwError(string $className, string $memberName, string $contextClassName){
-        $message  = "Referenced the either undefined or non-public object member `$className::$memberName`";
-        $message .= $contextClassName === §NotAClass§::CLASS ? '' : " from context `$contextClassName`";
-        throw new SymbolaInternals::$errorClass("$message.");
+        $message  = "Referenced the either undefined or non-public object member `" . $className . "::" . $memberName . "`";
+        $message .= $contextClassName === §NotAClass§::CLASS ? "" : " from context `" . $contextClassName . "`";
+        throw new SymbolaInternals::$errorClass($message . ".");
     }
 }
