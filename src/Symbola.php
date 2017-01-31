@@ -140,6 +140,6 @@ trait Symbola
     final private function __Symbola__throwError(string $className, string $memberName, string $contextClassName){
         $message  = "Referenced the either undefined or non-public object member `" . $className . "::" . $memberName . "`";
         $message .= $contextClassName === §NotAClass§::CLASS ? "" : " from context `" . $contextClassName . "`";
-        throw new SymbolaInternals::$errorClass($message . ".");
+        throw new SymbolaInternals::$errorClass($message);
     }
 }
