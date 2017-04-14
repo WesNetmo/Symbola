@@ -88,7 +88,7 @@ trait Symbola
      *
      * @return string
      */
-    final private function __Symbola__getReferencerClass(){
+    private function __Symbola__getReferencerClass(){
         if(isset(SymbolaInternals::$customReferencerScope)){
             $referencerClass = SymbolaInternals::$customReferencerScope;
             return $referencerClass === '' ? §NotAClass§::CLASS : $referencerClass;
@@ -110,7 +110,7 @@ trait Symbola
      * @return ReflectionMethod
      * @throws Error If there is no such method.
      */
-    final private function __Symbola__getLastInHierarchyMethod($methodName, $referencerClass){
+    private function __Symbola__getLastInHierarchyMethod($methodName, $referencerClass){
         try{
             return new ReflectionMethod($this, $methodName);
         }catch(ReflectionException $e){
@@ -124,7 +124,7 @@ trait Symbola
      * @param string $className
      * @return string The root class of the given class name.
      */
-    final private function __Symbola__getRootClassOf(string $className){
+    private function __Symbola__getRootClassOf(string $className){
         $parents = array_keys(class_parents($className));
         return count($parents) === 0 ? $className :  array_slice($parents, -1)[0];
     }
@@ -137,7 +137,7 @@ trait Symbola
      * @param string $contextClassName The class context of the referencer, or empty string if referenced from a non-class context.
      * @throws Error
      */
-    final private function __Symbola__throwError(string $className, string $memberName, string $contextClassName){
+    private function __Symbola__throwError(string $className, string $memberName, string $contextClassName){
         $message  = "Referenced the either undefined or non-public object member `" . $className . "::" . $memberName . "`";
         $message .= $contextClassName === §NotAClass§::CLASS ? "" : " from context `" . $contextClassName . "`";
         throw new SymbolaInternals::$errorClass($message);
