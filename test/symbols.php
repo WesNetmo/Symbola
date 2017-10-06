@@ -1,11 +1,9 @@
 <?php
 
-use Netmosfera\Symbola\Examples\ClassMemberAccessError;
-
 class DifferentClass{}
 const Closure = Closure::CLASS;
 const DifferentClass = DifferentClass::CLASS;
-const EC = ClassMemberAccessError::CLASS;
+const EC = Error::CLASS;
 
 function errMsg($className, $memberName, $context = ''){
     if($context === ''){

@@ -8,7 +8,7 @@
         {
             "name": "Wes",
             "homepage": "https://github.com/Netmosfera",
-            "role": "developer"
+            "role": "Smith"
         }
     ],
     "autoload": {
@@ -25,9 +25,9 @@
         ]
     },
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.2 <8"
     },
     "require-dev": {
-        "phpunit/phpunit": "5.7.*"
+        "phpunit/phpunit": ">=6 <7"
     }
 }

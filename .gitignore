@@ -1,1 +1,4 @@
-vendor/
+vendor
+tmp
+phpunit.bat
+composer.lock

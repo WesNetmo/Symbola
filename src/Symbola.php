@@ -25,59 +25,75 @@ final class §NotAClass§
 
 trait Symbola
 {
-    /** @inheritDoc */
-    public function __call($methodName, $arguments){
-        $callerClassContext = $this->__Symbola__getReferencerClass();
-        $call = function($methodName, $arguments){ $m = $this->$methodName; return $m(...$arguments); };
-        $call = $call->bindTo($this, $callerClassContext);
-        return $call($methodName, $arguments);
-    }
+    private $__Symbola__closures = [];
+
+    //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
     /** @inheritDoc */
-    public function __get($methodName){
-        $callerClassContext = $this->__Symbola__getReferencerClass();
-        //----------------------------------------------------------------------------------
-        if(is_a($this, $callerClassContext)){
-            // Caller is within `$this` object's hierarchy (e.g. `$this->method`);
-            // checking if `$methodName` within `$callerClassContext` exists.
+    public function __call($memberName, $arguments){
+        return (function() use($memberName, $arguments){
+            return ($this->{$memberName})(...$arguments);
+        })->bindTo(
+            $this,
+            $this->__Symbola__getCallerClass()
+        )();
+    }
+
+    //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+
+    /** @inheritDoc */
+    public function __get($memberName){
+        $callerClass = $this->__Symbola__getCallerClass();
+
+        $RM = NULL;
+
+        // Attempts to get the private method in `$callerClass` first:
+        if(is_a($this, $callerClass)){
             try{
-                $reflectionMethod = new ReflectionMethod($callerClassContext, $methodName);
-                if($reflectionMethod->getDeclaringClass()->getName() !== $callerClassContext){
-                    // The method must be defined within `$callerClassContext`;
-                    // inherited methods must be discarded, as this aims to determine if
-                    // a private method named `$methodName` exists.
-                    unset($reflectionMethod);
+                $RM = new ReflectionMethod($callerClass, $memberName);
+                if(
+                    $RM->getDeclaringClass()->getName() !== $callerClass ||
+                    $RM->isPrivate() === FALSE
+                ){
+                    $RM = NULL;
                 }
             }catch(ReflectionException $e){
-                // The method is undefined.
+                unset($e); // There is no private method in `$callerClass`.
             }
-            if(!isset($reflectionMethod) || !$reflectionMethod->isPrivate()){
-                // If it's not private or it doesn't exist, attempt to use
-                // the last-in-hierarchy method definition.
-                $reflectionMethod = $this->__Symbola__getLastInHierarchyMethod($methodName, $callerClassContext);
-            }
-            // Otherwise, use the private method found, which has precedence.
-        }else{
-            // Caller is outside $this' hierarchy; attempt to use
-            // the last-in-hierarchy method definition.
-            $reflectionMethod = $this->__Symbola__getLastInHierarchyMethod($methodName, $callerClassContext);
         }
-        //----------------------------------------------------------------------------------
+
+        // If the private method is not available, use the most recent method definition:
+        if($RM === NULL){
+            try{
+                $RM = new ReflectionMethod($this, $memberName);
+            }catch(ReflectionException $e){
+                $this->__Symbola__throwError(static::CLASS, $memberName, $callerClass);
+            }
+        }
+
+        $RMOwnerClass = $RM->getDeclaringClass();
+        $RMIsPrivate = $RM->isPrivate();
         if(
-            // If the method is private, the referencer class context must match exactly.
-            ($reflectionMethod->isPrivate() && $callerClassContext !== $reflectionMethod->getDeclaringClass()->getName()) ||
-            // If the method is protected, $this must be an instance of the root class
-            // (the first class in hierarchy that has no `extends`) of $callerClassContext
-            ($reflectionMethod->isProtected() && !is_a($this, $this->__Symbola__getRootClassOf($callerClassContext)))
+            // If the method is private, the caller class' context must match exactly.
+            ($RMIsPrivate && $callerClass !== $RMOwnerClass->getName()) ||
+
+            // If the method is protected, `$this` must be an instance of the root class
+            // (the first class in hierarchy that has no `extends`) of `$callerClass`.
+            ($RM->isProtected() && !is_a($this, $this->__Symbola__getRootClassOf($callerClass)))
         ){
-            $this->__Symbola__throwError(static::CLASS, $methodName, $callerClassContext);
+            $this->__Symbola__throwError(static::CLASS, $memberName, $callerClass);
         }
-        //----------------------------------------------------------------------------------
-        $method = function(...$arguments) use($methodName){
-            return $this->$methodName(...$arguments);
-        };
-        return $method->bindTo($this, $reflectionMethod->getDeclaringClass()->getName());
+
+        $key = ($RMIsPrivate ? $RMOwnerClass . "::" : "") . $memberName;
+
+        if(!isset($this->__Symbola__closures[$key])){
+            $this->__Symbola__closures[$key] = $RM->getClosure($this);
+        }
+
+        return $this->__Symbola__closures[$key];
     }
+
+    //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
     /**
      * Returns the class-context of the scope that referenced a member of `$this` object.
@@ -88,35 +104,21 @@ trait Symbola
      *
      * @return string
      */
-    private function __Symbola__getReferencerClass(){
-        if(isset(SymbolaInternals::$customReferencerScope)){
-            $referencerClass = SymbolaInternals::$customReferencerScope;
-            return $referencerClass === '' ? §NotAClass§::CLASS : $referencerClass;
+    private function __Symbola__getCallerClass(){
+        if(SymbolaInternals::$customCallerClass !== NULL){
+            $callerClass = SymbolaInternals::$customCallerClass;
+            return $callerClass === '' ? §NotAClass§::CLASS : $callerClass;
         }
         // @codeCoverageIgnoreStart
-        $referencerClass = debug_backtrace(0, 3);
-        if(isset($referencerClass[2]) && isset($referencerClass[2]['class'])){
-            return $referencerClass[2]['class'];
+        $callerClass = debug_backtrace(0, 3);
+        if(isset($callerClass[2]) && isset($callerClass[2]['class'])){
+            return $callerClass[2]['class'];
         }
         return §NotAClass§::CLASS;
         // @codeCoverageIgnoreEnd
     }
 
-    /**
-     * Gets the last-in-hierarchy method definition matching the given name.
-     *
-     * @param string $methodName
-     * @param string $referencerClass
-     * @return ReflectionMethod
-     * @throws Error If there is no such method.
-     */
-    private function __Symbola__getLastInHierarchyMethod($methodName, $referencerClass){
-        try{
-            return new ReflectionMethod($this, $methodName);
-        }catch(ReflectionException $e){
-            $this->__Symbola__throwError(static::CLASS, $methodName, $referencerClass);
-        }
-    }
+    //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
     /**
      * Gets the root class type of the given class name.
@@ -129,17 +131,28 @@ trait Symbola
         return count($parents) === 0 ? $className :  array_slice($parents, -1)[0];
     }
 
+    //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+
     /**
      * Formats and throws an error invalid access.
      *
      * @param string $className The class name whose method can't be accessed.
      * @param string $memberName The name of the object member that can't be accessed.
-     * @param string $contextClassName The class context of the referencer, or empty string if referenced from a non-class context.
+     * @param string $callerClass The class context of the referencer, or empty string if referenced from a non-class context.
      * @throws Error
      */
-    private function __Symbola__throwError(string $className, string $memberName, string $contextClassName){
-        $message  = "Referenced the either undefined or non-public object member `" . $className . "::" . $memberName . "`";
-        $message .= $contextClassName === §NotAClass§::CLASS ? "" : " from context `" . $contextClassName . "`";
+    private function __Symbola__throwError(string $className, string $memberName, string $callerClass){
+        if($callerClass === §NotAClass§::CLASS){
+            $message = sprintf(
+                "Referenced the either undefined or non-public object member `%s::%s`",
+                $className, $memberName
+            );
+        }else{
+            $message = sprintf(
+                "Referenced the either undefined or non-public object member `%s::%s` from context `%s`",
+                $className, $memberName, $callerClass
+            );
+        }
         throw new SymbolaInternals::$errorClass($message);
     }
 }

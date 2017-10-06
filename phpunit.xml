@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    bootstrap="./vendor/autoload.php"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    stopOnError="true"
-    stopOnFailure="true"
-    stopOnIncomplete="true"
-    stopOnSkipped="true"
-    stopOnRisky="true"
-    strict="true"
->
+<phpunit bootstrap="./vendor/autoload.php">
     <testsuites>
         <testsuite name="SymbolaTests">
             <directory>./test/</directory>

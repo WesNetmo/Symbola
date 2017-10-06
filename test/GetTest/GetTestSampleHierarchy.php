@@ -67,7 +67,7 @@ const ChildChildChildKlass = ChildChildChildKlass::CLASS;
  */
 function make(string $className, string $caller = null){
     $object = new $className();
-    SymbolaInternals::$customReferencerScope = $caller;
+    SymbolaInternals::$customCallerClass = $caller;
     return $object;
 }
 

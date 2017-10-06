@@ -10,7 +10,7 @@ First class methods & more for PHP 7 (Experimental)
 ```php
 /**
  * @method string foo()
- * @property string $bar
+ * @property Closure $bar
  */
 class Something
 {
