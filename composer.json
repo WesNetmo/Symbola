@@ -18,10 +18,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Netmosfera\\SymbolaTests\\": "test/"
+            "Netmosfera\\SymbolaTests\\": "tests/"
         },
         "files": [
-            "test/symbols.php"
+            "tests/symbols.php"
         ]
     },
     "require": {

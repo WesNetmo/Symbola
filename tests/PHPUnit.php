@@ -4,12 +4,12 @@ namespace Netmosfera\SymbolaTests;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Throwable;
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
-abstract class PHPUnit extends PHPUnit_Framework_TestCase
+abstract class PHPUnit extends TestCase
 {
     /**
      * Asserts that the given callable raises the given exception type.
