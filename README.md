@@ -1,5 +1,7 @@
 # Symbola
 
+[![Build Status](https://travis-ci.org/Netmosfera/Symbola.svg?branch=master)](https://travis-ci.org/Netmosfera/Symbola)
+
 First class methods & more for PHP 7 (Experimental)
 
 ## Why use it?
