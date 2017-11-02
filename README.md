@@ -44,3 +44,11 @@ echo $bar(); // Prints "I'm bar!"
 ```
 composer require netmosfera/symbola
 ```
+
+
+## Warnings:
+
+Function-scope static variables won't work as expected. This is a PHP design issue that this
+library can't solve. Basically, when the `Closure` is created, it will get its own copy of
+`static` variables, which will not match the original method's. Changes to the static
+variables in the `Closure` are not reflected by the method and vice-versa.
